@@ -1,6 +1,4 @@
-import 'package:bliss/cat_home.dart';
-import 'package:bliss/home.dart';
-import 'package:bliss/story_home.dart';
+import 'package:bliss/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,11 +16,11 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Bliss-Bloom',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          home: HomeScreen()),
+          // theme: ThemeData(
+          //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          //   useMaterial3: true,
+          // ),
+          home: LandingPage()),
     );
   }
 }
