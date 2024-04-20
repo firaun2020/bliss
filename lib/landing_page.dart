@@ -1,16 +1,20 @@
 import 'package:bliss/home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Import Get package for navigation
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
+  Future<List<Map<String, dynamic>>> topStories;
+  LandingPage({super.key, required this.topStories});
 
   @override
-  _LandingPageState createState() => _LandingPageState();
+  _LandingPageState createState() => _LandingPageState(topstories: topStories);
 }
 
 class _LandingPageState extends State<LandingPage> {
   bool showProgress = true;
+  Future<List<Map<String, dynamic>>> topstories;
+  _LandingPageState({required this.topstories});
 
   @override
   void initState() {
@@ -23,7 +27,9 @@ class _LandingPageState extends State<LandingPage> {
     await Future.delayed(Duration(seconds: 1));
 
     // Navigate to HomeScreen
-    Get.off(HomeScreen());
+    Get.off(HomeScreen(
+      snapshot: topstories,
+    ));
   }
 
   @override
