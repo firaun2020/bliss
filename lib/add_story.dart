@@ -1,4 +1,3 @@
-import 'package:bliss/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,9 @@ class _StoryFormState extends State<StoryForm> {
   final _titleController = TextEditingController();
   final _idController = TextEditingController();
   final _storyTextController = TextEditingController();
-  String _category = "Romance";
+  final _readsController = TextEditingController();
+  final _likesController = TextEditingController();
+  String _category = "ROMANCE";
   bool _isTop = false;
 
   @override
@@ -22,6 +23,8 @@ class _StoryFormState extends State<StoryForm> {
     _titleController.dispose();
     _idController.dispose();
     _storyTextController.dispose();
+    _readsController.dispose();
+    _likesController.dispose();
     super.dispose();
   }
 
@@ -77,10 +80,32 @@ class _StoryFormState extends State<StoryForm> {
                   return null;
                 },
               ),
+              TextFormField(
+                controller: _readsController,
+                decoration: InputDecoration(labelText: 'Reads'),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter reads';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _likesController,
+                decoration: InputDecoration(labelText: 'Likes'),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter likes';
+                  }
+                  return null;
+                },
+              ),
               DropdownButtonFormField<String>(
                 value: _category,
                 decoration: InputDecoration(labelText: 'Category'),
-                items: ["Romance", "BDSM", "LGBTQ", "Confessions"]
+                items: ["ROMANCE", "BDSM", "LGBTQ", "CONFESSION"]
                     .map((String category) {
                   return DropdownMenuItem<String>(
                     value: category,
@@ -120,6 +145,8 @@ class _StoryFormState extends State<StoryForm> {
                       'title': _titleController.text,
                       'id': int.parse(_idController.text),
                       'story_text': _storyTextController.text,
+                      'reads': int.parse(_readsController.text),
+                      'likes': int.parse(_likesController.text),
                       'category': _category,
                       'top': _isTop,
                     });
@@ -133,6 +160,8 @@ class _StoryFormState extends State<StoryForm> {
                     _titleController.clear();
                     _idController.clear();
                     _storyTextController.clear();
+                    _readsController.clear();
+                    _likesController.clear();
                     setState(() {
                       _category = "A";
                       _isTop = false;

@@ -33,7 +33,7 @@ class DataBaseMatters {
       return {'categories': []};
     }
   }
-  // GET TOP
+  // GET TOP & return title, id and url
 
   Future<List<Map<String, dynamic>>> getTopStoriesData() async {
     try {
@@ -49,16 +49,49 @@ class DataBaseMatters {
       List<Map<String, dynamic>> storiesData = querySnapshot.docs.map((doc) {
         return {
           'title': doc['title'] as String,
-          'id': doc.id,
+          'id': doc["id"],
           'url': doc['url'] as String,
         };
       }).toList();
-      print(storiesData);
 
       return storiesData;
     } catch (e) {
       print('Error fetching top stories: $e');
       return [];
+    }
+  }
+
+// return a specific story
+
+  Future<Map<String, dynamic>> getOneStory(int storyId) async {
+    try {
+      // Reference to the 'stories' collection
+      CollectionReference storiesRef =
+          FirebaseFirestore.instance.collection('stories');
+
+      // Query documents where 'id' field is equal to storyId
+      QuerySnapshot querySnapshot =
+          await storiesRef.where('id', isEqualTo: storyId).get();
+
+      // Check if the querySnapshot has any documents
+      if (querySnapshot.docs.isNotEmpty) {
+        // Extract details from the document
+        Map<String, dynamic> theStory = {
+          'title': querySnapshot.docs.first['title'] as String,
+          'story_text': querySnapshot.docs.first['story_text'] as String,
+          'reads': querySnapshot.docs.first['reads'] as String,
+          'likes': querySnapshot.docs.first['likes'],
+          'url': querySnapshot.docs.first['url'] as String,
+        };
+
+        return theStory;
+      } else {
+        print('Document with id $storyId does not exist');
+        return {};
+      }
+    } catch (e) {
+      print('Error fetching the story: $e');
+      return {};
     }
   }
 }

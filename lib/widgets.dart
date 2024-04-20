@@ -10,8 +10,6 @@ Widget headingText(headingColor, decorationColor, text) {
           color: headingColor,
           letterSpacing: 1.5,
           decorationThickness: 1.0,
-          decoration: TextDecoration.combine(
-              [TextDecoration.overline, TextDecoration.underline]),
           decorationColor: decorationColor,
           fontWeight: FontWeight.bold,
         ),

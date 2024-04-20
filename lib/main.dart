@@ -45,7 +45,10 @@ class MyApp extends StatelessWidget {
                 future: storiesData,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return const CircularProgressIndicator(
+                      color: Colors.pink,
+                      backgroundColor: Colors.white,
+                    );
                   }
                   if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
