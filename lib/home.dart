@@ -1,5 +1,6 @@
 import 'package:bliss/add_story.dart';
 import 'package:bliss/constants.dart';
+import 'package:bliss/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -13,34 +14,26 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: bkgBlack,
+          title: GestureDetector(
+            onLongPress: () {
+              Get.to(StoryForm());
+            },
+            child: Container(
+              height: 50,
+              width: 150,
+              child: Image.asset("lib/bliss_typefont.png"),
+            ),
+          ),
+        ),
+        backgroundColor: bkgBlack,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: Column(
             children: [
-              Container(
-                height: 150,
-                width: 150,
-                child: CircleAvatar(
-                  backgroundColor: Colors.black,
-                  child: Image.asset("lib/logo_bliss.png"),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Divider(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Get.to(StoryForm());
-                  },
-                  child: Text("Add Story")),
-              const Text(
-                "CATEGORIES",
-                style: TextStyle(fontSize: 20),
-              ),
+              headingText(Colors.white, klightBlue, "CATEGORIES"),
               SizedBox(
                 height: 50,
                 child: ListView.builder(
@@ -53,27 +46,29 @@ class HomeScreen extends StatelessWidget {
                         width: 100,
                         height: 50,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.pinkAccent,
-                        ),
-                        child: Center(child: Text(kcategories[index])),
+                            borderRadius: BorderRadius.circular(5),
+                            color: klightBlue),
+                        child: Center(
+                            child: Text(
+                          kcategories[index],
+                          style: const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        )),
                       ),
                     );
                   },
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 20,
               ),
               const Divider(
-                height: 10,
+                height: 0.5,
+                color: Colors.blueGrey,
               ),
-              const Text(
-                "TOP RATED ",
-                style: TextStyle(fontSize: 20),
-              ),
+              headingText(Colors.white, klightBlue, "TOP READ"),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Expanded(
                 child: FutureBuilder<List<Map<String, dynamic>>>(
@@ -92,26 +87,26 @@ class HomeScreen extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        mainAxisSpacing: 10.0,
-                        crossAxisSpacing: 10.0,
-                        childAspectRatio: 1,
+                        mainAxisSpacing: 2.0,
+                        crossAxisSpacing: 2.0,
+                        childAspectRatio: 0.8,
                       ),
                       itemCount: itemCount,
                       itemBuilder: (context, index) {
                         return Container(
+                          height: 800,
                           decoration: BoxDecoration(
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: Column(
                             children: [
                               Expanded(
                                 child: Container(
-                                  height: 250,
-                                  width: 50,
-                                  child: Image.asset(
-                                    'lib/logo_bliss.png',
+                                  width: 100,
+                                  child: Image.network(
+                                    snapshot.data![index]['url'],
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -125,8 +120,8 @@ class HomeScreen extends StatelessWidget {
                                     snapshot.data![index]['title'],
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal),
                                   ),
                                 ),
                               ),

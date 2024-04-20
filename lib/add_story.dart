@@ -13,7 +13,7 @@ class _StoryFormState extends State<StoryForm> {
   final _titleController = TextEditingController();
   final _idController = TextEditingController();
   final _storyTextController = TextEditingController();
-  String _category = "A";
+  String _category = "Romance";
   bool _isTop = false;
 
   @override

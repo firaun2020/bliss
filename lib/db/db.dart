@@ -50,6 +50,7 @@ class DataBaseMatters {
         return {
           'title': doc['title'] as String,
           'id': doc.id,
+          'url': doc['url'] as String,
         };
       }).toList();
       print(storiesData);
