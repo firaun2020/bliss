@@ -50,7 +50,7 @@ class _LandingPageState extends State<LandingPage> {
                   height: 10,
                 ),
                 Container(
-                  height: 400,
+                  height: 300,
                   width: 500,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -59,10 +59,25 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                   ),
                 ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "TRUE STORIES",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.lightBlue,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 3),
+                  ),
+                ),
                 const SizedBox(
                   height: 50,
+                ),
+                const SizedBox(
+                  height: 40,
                   child: Text(
-                    "Welcome To Your Exclusive Access",
+                    "Welcome to Bliss Bloom's Hidden Chapters",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
@@ -96,11 +111,11 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 100,
+                  height: 200,
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      "Site contains some mature content. By Clicking CONTINUE you agree to our Terms & Conditions ",
+                      "Discover the Unspoken. Delve into the Depths of Taboo. Congratulations on your new purchase from Bliss Bloom and welcome to a secluded escape where the world’s most veiled stories come to light. You’ve unlocked access to an exclusive Bliss Bloom collection of real, raw, and riveting narratives shared anonymously.",
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),

@@ -14,7 +14,6 @@ class _StoryFormState extends State<StoryForm> {
   final _storyTextController = TextEditingController();
   final _readsController = TextEditingController();
   final _likesController = TextEditingController();
-  String _category = "ROMANCE";
   bool _isTop = false;
 
   @override
@@ -102,28 +101,6 @@ class _StoryFormState extends State<StoryForm> {
                   return null;
                 },
               ),
-              DropdownButtonFormField<String>(
-                value: _category,
-                decoration: InputDecoration(labelText: 'Category'),
-                items: ["ROMANCE", "BDSM", "LGBTQ", "CONFESSION"]
-                    .map((String category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: Text(category),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _category = value!;
-                  });
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return 'Please select a category';
-                  }
-                  return null;
-                },
-              ),
               SwitchListTile(
                 title: Text("Top"),
                 value: _isTop,
@@ -147,8 +124,11 @@ class _StoryFormState extends State<StoryForm> {
                       'story_text': _storyTextController.text,
                       'reads': int.parse(_readsController.text),
                       'likes': int.parse(_likesController.text),
-                      'category': _category,
+                      'category': "true_story",
                       'top': _isTop,
+                      'date_posted': DateTime.now(),
+                      'url':
+                          "https://firebasestorage.googleapis.com/v0/b/bliss-bloom.appspot.com/o/story_covers%2F001.png?alt=media&token=91a8242f-4ba2-41e3-bb00-912d9de3a8c6"
                     });
 
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -163,7 +143,6 @@ class _StoryFormState extends State<StoryForm> {
                     _readsController.clear();
                     _likesController.clear();
                     setState(() {
-                      _category = "A";
                       _isTop = false;
                     });
                   }

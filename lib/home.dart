@@ -32,46 +32,12 @@ class HomeScreen extends StatelessWidget {
         ),
         backgroundColor: bkgBlack,
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                      child: Container(
-                          color: Colors.grey.withOpacity(0.1),
-                          child: headingText(
-                              Colors.white, klightBlue, "CATEGORIES"))),
-                ],
-              ),
-              SizedBox(
-                height: 50,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: kcategories.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 5),
-                      child: Container(
-                        width: 100,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: klightBlue),
-                        child: Center(
-                            child: Text(
-                          kcategories[index],
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        )),
-                      ),
-                    );
-                  },
-                ),
-              ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Row(
                 children: [
@@ -79,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                       child: Container(
                           color: Colors.grey.withOpacity(0.1),
                           child: headingText(
-                              Colors.white, klightBlue, "TOP READ"))),
+                              Colors.white, klightBlue, "TOP STORIES"))),
                 ],
               ),
               const SizedBox(
@@ -151,12 +117,9 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                // Container(
-                                //   child: Text(
-                                //     "Score: 4 / 5",
-                                //     style: TextStyle(color: Colors.yellow),
-                                //   ),
-                                // )
+                                const SizedBox(
+                                  height: 15,
+                                )
                               ],
                             ),
                           ),
@@ -165,6 +128,114 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                 ),
+              ),
+              Container(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: Colors.grey.withOpacity(0.1),
+                        child: headingText(
+                            Colors.white, klightBlue, "LATEST 5 STORIES"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 250,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: 5, // Assuming you always want to display 5 items
+                  itemBuilder: (context, index) {
+                    // Call the latest5Stories function to get the data
+                    Future<List<Map<String, dynamic>>> storiesFuture =
+                        DataBaseMatters().latest5Stories();
+
+                    // Return a FutureBuilder to handle the asynchronous data retrieval
+                    return FutureBuilder<List<Map<String, dynamic>>>(
+                      future: storiesFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          // While waiting for data, return a placeholder or loading indicator
+                          return const CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          // If an error occurs while fetching data, display an error message
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          // If data is successfully retrieved, display the ListView
+                          List<Map<String, dynamic>> storiesData =
+                              snapshot.data ?? [];
+                          // Check if index is within bounds of storiesData list
+                          if (index < storiesData.length) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 5),
+                              child: GestureDetector(
+                                onTap: () async {
+                                  DataBaseMatters dataBaseMatters =
+                                      DataBaseMatters();
+
+                                  Map<String, dynamic> storyToShow =
+                                      await dataBaseMatters.getOneStory(
+                                          snapshot.data![index]["id"]);
+
+                                  Get.to(StoryHomePage(
+                                    storyObject: storyToShow,
+                                  ));
+                                },
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 100,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                storiesData[index]['url']),
+                                            fit: BoxFit.cover),
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        padding:
+                                            EdgeInsets.symmetric(horizontal: 5),
+                                        width: 250,
+                                        height: 30,
+                                        child: Text(
+                                          storiesData[index]['title'] ?? '',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color:
+                                              Colors.blueGrey.withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else {
+                            // If index exceeds the length of storiesData list, return an empty container
+                            return Container();
+                          }
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 10,
               ),
               Row(
                 children: [

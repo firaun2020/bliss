@@ -41,15 +41,15 @@ class DataBaseMatters {
       CollectionReference storiesRef =
           FirebaseFirestore.instance.collection('stories');
 
-      // Query documents where 'top' field is set to TRUE
+      // Query documents where 'top' field is set to TRUE and limit to 15
       QuerySnapshot querySnapshot =
-          await storiesRef.where('top', isEqualTo: true).get();
+          await storiesRef.where('top', isEqualTo: true).limit(15).get();
 
       // Extract titles and ids from the documents
       List<Map<String, dynamic>> storiesData = querySnapshot.docs.map((doc) {
         return {
           'title': doc['title'] as String,
-          'id': doc["id"],
+          'id': doc['id'],
           'url': doc['url'] as String,
         };
       }).toList();
@@ -57,6 +57,36 @@ class DataBaseMatters {
       return storiesData;
     } catch (e) {
       print('Error fetching top stories: $e');
+      return [];
+    }
+  }
+
+// return a latest 5 stories
+
+  Future<List<Map<String, dynamic>>> latest5Stories() async {
+    try {
+      // Reference to the 'stories' collection
+      CollectionReference storiesRef =
+          FirebaseFirestore.instance.collection('stories');
+
+      // Query documents ordered by 'date_posted' field in descending order and limit to 5
+      QuerySnapshot querySnapshot = await storiesRef
+          .orderBy('date_posted', descending: true)
+          .limit(5)
+          .get();
+
+      // Extract titles, ids, and urls from the documents
+      List<Map<String, dynamic>> storiesData = querySnapshot.docs.map((doc) {
+        return {
+          'title': doc['title'] as String,
+          'id': doc['id'],
+          'url': doc['url'] as String,
+        };
+      }).toList();
+
+      return storiesData;
+    } catch (e) {
+      print('Error fetching latest stories: $e');
       return [];
     }
   }
@@ -79,7 +109,7 @@ class DataBaseMatters {
         Map<String, dynamic> theStory = {
           'title': querySnapshot.docs.first['title'] as String,
           'story_text': querySnapshot.docs.first['story_text'] as String,
-          'reads': querySnapshot.docs.first['reads'] as String,
+          'reads': querySnapshot.docs.first['reads'],
           'likes': querySnapshot.docs.first['likes'],
           'url': querySnapshot.docs.first['url'] as String,
         };
