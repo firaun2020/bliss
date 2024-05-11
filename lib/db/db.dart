@@ -124,4 +124,57 @@ class DataBaseMatters {
       return {};
     }
   }
+
+  // All stories with Date Sort
+  Future<List<Map<String, dynamic>>> allStoriesSortedByDate() async {
+    try {
+      // Reference to the 'stories' collection
+      CollectionReference storiesRef =
+          FirebaseFirestore.instance.collection('stories');
+
+      // Query documents ordered by 'date_posted' field in descending order
+      QuerySnapshot querySnapshot =
+          await storiesRef.orderBy('date_posted', descending: true).get();
+
+      // Extract titles, ids, and urls from the documents
+      List<Map<String, dynamic>> storiesData = querySnapshot.docs.map((doc) {
+        return {
+          'title': doc['title'] as String,
+          'id': doc['id'],
+          'url': doc['url'] as String,
+        };
+      }).toList();
+
+      return storiesData;
+    } catch (e) {
+      print('Error fetching stories: $e');
+      return [];
+    }
+  }
+
+// Submit fan story
+  Future<void> submitStory(String name, String story) async {
+    try {
+      // Reference to the 'fan_submit' collection
+      CollectionReference storiesRef =
+          FirebaseFirestore.instance.collection('fan_submit');
+
+      // Get the current timestamp
+      DateTime timestamp = DateTime.now();
+
+      // Convert timestamp to a string for use as document name
+      String documentName = timestamp.toIso8601String();
+
+      // Create a new document with the timestamp as the document name
+      await storiesRef.doc(documentName).set({
+        'name': name,
+        'story': story,
+        'timestamp': timestamp,
+      });
+
+      print('Story submitted successfully');
+    } catch (e) {
+      print('Error submitting story: $e');
+    }
+  }
 }

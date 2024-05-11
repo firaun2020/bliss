@@ -1,7 +1,7 @@
 import 'package:bliss/add_story.dart';
 import 'package:bliss/constants.dart';
 import 'package:bliss/db/db.dart';
-import 'package:bliss/story_home.dart';
+import 'package:bliss/fan_submit.dart';
 import 'package:bliss/story_page.dart';
 import 'package:bliss/widgets.dart';
 import 'package:flutter/material.dart';
@@ -37,19 +37,20 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               Row(
                 children: [
                   Expanded(
-                      child: Container(
-                          color: Colors.grey.withOpacity(0.1),
-                          child: headingText(
-                              Colors.white, klightBlue, "TOP STORIES"))),
+                    child: Container(
+                      color: Colors.grey.withOpacity(0.1),
+                      child: headingText(Colors.white, klightBlue, "TOP SHARE"),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               Expanded(
                 child: FutureBuilder<List<Map<String, dynamic>>>(
@@ -68,9 +69,9 @@ class HomeScreen extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        mainAxisSpacing: 2.0,
-                        crossAxisSpacing: 2.0,
-                        childAspectRatio: 0.8,
+                        mainAxisSpacing: 1.0,
+                        crossAxisSpacing: 1.0,
+                        childAspectRatio: 0.9,
                       ),
                       itemCount: itemCount,
                       itemBuilder: (context, index) {
@@ -136,21 +137,22 @@ class HomeScreen extends StatelessWidget {
                       child: Container(
                         color: Colors.grey.withOpacity(0.1),
                         child: headingText(
-                            Colors.white, klightBlue, "LATEST 5 STORIES"),
+                            Colors.white, klightBlue, "LATEST ENCOUNTERS"),
                       ),
                     ),
                   ],
                 ),
               ),
               Container(
-                height: 250,
+                height: 210,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: 5, // Assuming you always want to display 5 items
+                  itemCount: 16, // Assuming you always want to display 5 items
                   itemBuilder: (context, index) {
                     // Call the latest5Stories function to get the data
+                    // call all instead
                     Future<List<Map<String, dynamic>>> storiesFuture =
-                        DataBaseMatters().latest5Stories();
+                        DataBaseMatters().allStoriesSortedByDate();
 
                     // Return a FutureBuilder to handle the asynchronous data retrieval
                     return FutureBuilder<List<Map<String, dynamic>>>(
@@ -189,7 +191,7 @@ class HomeScreen extends StatelessWidget {
                                   children: [
                                     Container(
                                       width: 100,
-                                      height: 30,
+                                      height: 50,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: NetworkImage(
@@ -245,6 +247,33 @@ class HomeScreen extends StatelessWidget {
                           child: headingText(Colors.white, klightBlue,
                               "SUBMIT YOUR EXPERIENCE"))),
                 ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.pink),
+                  alignment: Alignment.center,
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.0), // Adjust the radius to make edges less rounded
+                    ),
+                  ),
+                  minimumSize: MaterialStateProperty.all<Size>(
+                    const Size(double.infinity,
+                        50), // Adjust the height to make it bigger
+                  ),
+                ),
+                onPressed: () {
+                  Get.off(FanSubmit());
+                },
+                child: const Text(
+                  "Share yours",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
