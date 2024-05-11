@@ -66,19 +66,19 @@ class _LandingPageState extends State<LandingPage> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.lightBlue,
-                        fontSize: 15,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 3),
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
                 const SizedBox(
                   height: 40,
                   child: Text(
                     "Welcome to Bliss Bloom's Hidden Chapters",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white, fontSize: 15),
                   ),
                 ),
                 Padding(
