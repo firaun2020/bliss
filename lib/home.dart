@@ -111,8 +111,11 @@ class HomeScreen extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       snapshot.data![index]['title'],
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
+                                          fontSize: 12,
                                           color: Colors.white,
                                           fontWeight: FontWeight.normal),
                                     ),
@@ -206,19 +209,23 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Container(
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 5),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
                                         width: 250,
                                         height: 30,
-                                        child: Text(
-                                          storiesData[index]['title'] ?? '',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
                                         decoration: BoxDecoration(
                                           color:
                                               Colors.blueGrey.withOpacity(0.1),
                                           borderRadius:
                                               BorderRadius.circular(8),
+                                        ),
+                                        child: Text(
+                                          storiesData[index]['title'] ?? '',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white),
                                         ),
                                       ),
                                     ),
