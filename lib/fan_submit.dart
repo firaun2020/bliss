@@ -37,22 +37,24 @@ class FanSubmit extends StatelessWidget {
             children: [
               TextFormField(
                 controller: _name,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Name (Optional)',
                   hintText: 'Anonymous',
                 ),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _story,
                 maxLines: 5,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Your Story',
                   alignLabelWithHint: true,
                   border: OutlineInputBorder(),
                 ),
+                style: const TextStyle(color: Colors.white),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   // Validate story field

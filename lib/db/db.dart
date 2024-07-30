@@ -42,8 +42,11 @@ class DataBaseMatters {
           FirebaseFirestore.instance.collection('stories');
 
       // Query documents where 'top' field is set to TRUE and limit to 15
-      QuerySnapshot querySnapshot =
-          await storiesRef.where('top', isEqualTo: true).limit(15).get();
+      QuerySnapshot querySnapshot = await storiesRef
+          .orderBy("date_posted", descending: true)
+          .where('top', isEqualTo: true)
+          .limit(9)
+          .get();
 
       // Extract titles and ids from the documents
       List<Map<String, dynamic>> storiesData = querySnapshot.docs.map((doc) {
