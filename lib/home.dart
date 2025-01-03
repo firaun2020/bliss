@@ -94,10 +94,12 @@ class HomeScreen extends StatelessWidget {
                             ),
                             padding: const EdgeInsets.all(10),
                             child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 Expanded(
                                   child: Container(
                                     width: 100,
+                                    height: 200,
                                     child: Image.network(
                                       snapshot.data![index]['url'],
                                       fit: BoxFit.cover,

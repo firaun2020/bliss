@@ -115,7 +115,7 @@ class _LandingPageState extends State<LandingPage> {
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      "Discover the Unspoken. Delve into the Depths of Taboo. Congratulations on your new purchase from Bliss Bloom and welcome to a secluded escape where the world’s most veiled stories come to light. You’ve unlocked access to an exclusive Bliss Bloom collection of real, raw, and riveting narratives shared anonymously.",
+                      "Discover the unspoken and delve into the depths of Taboo. Welcome to Bliss Bloom, where the world's most veiled stories come to light. Usually reserved for our valued customers, this exclusive content is temporarily open to all who wish to explore. Thank you for visiting!",
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
