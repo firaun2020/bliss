@@ -66,6 +66,8 @@ flutter:
     - lib/logo_bliss.png
     - lib/bliss_b.png
     - lib/bliss_typefont.png
+    - lib/logo_white.png
+    - lib/cu_hori.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

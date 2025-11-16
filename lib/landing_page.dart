@@ -54,7 +54,7 @@ class _LandingPageState extends State<LandingPage> {
                   width: 500,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("lib/logo_bliss.png"),
+                      image: AssetImage("lib/logo_white.png"),
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -77,7 +77,7 @@ class _LandingPageState extends State<LandingPage> {
                 const SizedBox(
                   height: 40,
                   child: Text(
-                    "Welcome to Bliss Bloom's Hidden Chapters",
+                    "Welcome to CU's Hidden Chapters",
                     style: TextStyle(color: Colors.white, fontSize: 15),
                   ),
                 ),
@@ -115,7 +115,7 @@ class _LandingPageState extends State<LandingPage> {
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      "Discover the unspoken and delve into the depths of Taboo. Welcome to Bliss Bloom, where the world's most veiled stories come to light. Usually reserved for our valued customers, this exclusive content is temporarily open to all who wish to explore. Thank you for visiting!",
+                      "Discover the unspoken and delve into the depths of Taboo. Welcome to CU Exclusive, where the world's most veiled stories come to light. Usually reserved for our valued customers, this exclusive content is temporarily open to all who wish to explore. Thank you for visiting!",
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),

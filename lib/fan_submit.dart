@@ -22,9 +22,9 @@ class FanSubmit extends StatelessWidget {
             //Get.to(());
           },
           child: Container(
-            height: 50,
-            width: 150,
-            child: Image.asset("lib/bliss_typefont.png"),
+            height: 100,
+            width: 300,
+            child: Image.asset("lib/cu_hori.png"),
           ),
         ),
       ),
